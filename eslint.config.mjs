@@ -13,6 +13,6 @@ export default defineConfig([
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
     languageOptions: { globals: globals.node },
   },
-  globalIgnores(["build/**/*", "node_modules/**/*"]),
+  globalIgnores(["build/**/*", "node_modules/**/*", "generated/**/*"]),
   tseslint.configs.recommended,
 ]);
