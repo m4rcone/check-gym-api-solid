@@ -25,20 +25,20 @@ describe("Create User Use Case", () => {
     });
   });
 
-  test("Shold not be able to create a user with duplicated email", async () => {
+  test("Should not be able to create a user with duplicated email", async () => {
     const usersRepository = new InMemoryUsersRepository();
     const createUserUseCase = new CreateUserUseCase(usersRepository);
 
     await createUserUseCase.execute({
       name: "Nome Usuário",
-      email: "usuario@email.com",
+      email: "emailduplicado@email.com",
       password: "senhasegura",
     });
 
-    await expect(async () =>
+    await expect(() =>
       createUserUseCase.execute({
         name: "Nome Usuário",
-        email: "usuario@email.com",
+        email: "emailduplicado@email.com",
         password: "senhasegura",
       })
     ).rejects.toBeInstanceOf(ValidationError);
