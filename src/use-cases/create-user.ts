@@ -2,6 +2,7 @@ import { env } from "@/env";
 import { hash } from "bcryptjs";
 import { UsersRepository } from "@/repositories/users-repository";
 import { ValidationError } from "@/infra/errors";
+import { type User } from "generated/prisma";
 
 interface CreateUserUseCaseRequest {
   name: string;
@@ -16,7 +17,11 @@ export class CreateUserUseCase {
     this.userRepository = userRepository;
   }
 
-  async execute({ name, email, password }: CreateUserUseCaseRequest) {
+  async execute({
+    name,
+    email,
+    password,
+  }: CreateUserUseCaseRequest): Promise<User> {
     const userFound = await this.userRepository.findOneByEmail(email);
 
     if (userFound) {
@@ -37,7 +42,7 @@ export class CreateUserUseCase {
     return createdUser;
 
     function getNumberOfRounds() {
-      return env.NODE_ENV === "development" ? 1 : 14;
+      return env.NODE_ENV === "production" ? 14 : 1;
     }
   }
 }
