@@ -11,6 +11,7 @@ export class InMemoryUsersRepository implements UsersRepository {
       name: data.name,
       email: data.email,
       password: data.password,
+      role: data.role || "Member",
       created_at: new Date(),
       updated_at: new Date(),
     };
@@ -22,6 +23,16 @@ export class InMemoryUsersRepository implements UsersRepository {
 
   async findOneByEmail(email: string) {
     const userFound = this.users.find((user) => user.email === email);
+
+    if (!userFound) {
+      return null;
+    }
+
+    return userFound;
+  }
+
+  async findOneById(id: string) {
+    const userFound = this.users.find((user) => user.id === id);
 
     if (!userFound) {
       return null;
