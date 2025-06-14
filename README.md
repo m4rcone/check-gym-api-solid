@@ -26,7 +26,7 @@ Organização em camadas bem definidas, com separação clara de responsabilidad
 - `Controllers` / `HTTP Handlers`: lidam com as requisições e respostas.
 
 
-## Principais Tecnologias Utilizadas:
+## Principais Tecnologias Utilizadas
 
 - Node.js.
 - TypeScript.
@@ -50,7 +50,7 @@ npm run prisma:migrate
 npm run dev
 ```
 
-## RFs (Requisitos Funcionais)
+### RFs (Requisitos Funcionais)
 
 - [x] Registrar um novo usuário.
 - [x] Autenticar um usuário (login).
@@ -63,7 +63,7 @@ npm run dev
 - [x] Validar o check-in de um usuário.
 - [x] Cadastrar uma academia.
 
-## RNs (Regras de Negócio)
+### RNs (Regras de Negócio)
 
 - [x] O usuário não deve poder se cadastrar com um e-mail duplicado.
 - [x] O usuário não pode fazer 2 check-ins no mesmo dia.
@@ -73,7 +73,7 @@ npm run dev
 - [x] O check-in só pode ser validado por administradores.
 - [x] A academia só pode ser cadastrada por administradores.
 
-## RNFs (Requisitos Não-funcionais)
+### RNFs (Requisitos Não-funcionais)
 
 - [x] A senha do usuário precisa estar criptografada com hash.
 - [x] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL.
