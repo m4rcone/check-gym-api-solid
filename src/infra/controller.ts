@@ -1,9 +1,18 @@
 import { FastifyReply } from "fastify";
-import { InternalServerError, ValidationError } from "./errors";
+import {
+  InternalServerError,
+  NotFoundError,
+  UnauthorizedError,
+  ValidationError,
+} from "./errors";
 
 // eslint-disable-next-line
 export function errorHandlerResponse(error: Error | any, res: FastifyReply) {
-  if (error instanceof ValidationError) {
+  if (
+    error instanceof ValidationError ||
+    error instanceof UnauthorizedError ||
+    error instanceof NotFoundError
+  ) {
     return res.status(error.statusCode).send(error.toJSON());
   }
 
