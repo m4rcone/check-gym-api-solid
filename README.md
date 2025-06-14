@@ -45,7 +45,7 @@ Foram feitos 22 testes `unitários` e 30 testes `E2E`. Optei por fazer mais test
 npm i
 npm run services:up
 npm run prisma:generate
-npm run prisma:sql
+npm run prisma:generate:sql
 npm run prisma:migrate
 npm run dev
 ```
