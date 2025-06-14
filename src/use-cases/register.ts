@@ -4,42 +4,45 @@ import { UsersRepository } from "@/repositories/users-repository";
 import { ValidationError } from "@/infra/errors";
 import { type User } from "generated/prisma";
 
-interface CreateUserUseCaseRequest {
+interface RegisterUseCaseRequest {
   name: string;
   email: string;
   password: string;
+  role?: "Admin" | "Member";
 }
 
-export class CreateUserUseCase {
-  private userRepository;
+export class RegisterUseCase {
+  private usersRepository;
 
-  constructor(userRepository: UsersRepository) {
-    this.userRepository = userRepository;
+  constructor(usersRepository: UsersRepository) {
+    this.usersRepository = usersRepository;
   }
 
   async execute({
     name,
     email,
     password,
-  }: CreateUserUseCaseRequest): Promise<User> {
-    const userFound = await this.userRepository.findOneByEmail(email);
+    role,
+  }: RegisterUseCaseRequest): Promise<User> {
+    const userFound = await this.usersRepository.findOneByEmail(email);
 
     if (userFound) {
       throw new ValidationError({
         message: "O email informado já está sendo utilizado.",
-        action: "Utilize outro e-mail para realizar a operação.",
+        action: "Utilize outro email para realizar a operação.",
       });
     }
 
     const hashedPassword = await hash(password, getNumberOfRounds());
 
-    const createdUser = await this.userRepository.create({
+    const registeredUser = await this.usersRepository.create({
       name,
       email,
       password: hashedPassword,
+      role,
     });
 
-    return createdUser;
+    return registeredUser;
 
     function getNumberOfRounds() {
       return env.NODE_ENV === "production" ? 14 : 1;
